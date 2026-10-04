@@ -44,18 +44,28 @@ void main(){
   $("view-auth").addEventListener("mousemove", (e) => {
     const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = r.height - (e.clientY - r.top);
   });
-  const frame = () => {
-    if (!on) return;
-    const w = cv.clientWidth, h = cv.clientHeight;
+  const coarse = matchMedia("(pointer: coarse)").matches;
+  const sc = coarse ? 0.5 : 1;          // روی گوشی با نصف وضوح رندر می‌شود
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let raf = 0, last = 0;
+  const draw = () => {
+    const w = Math.max(1, Math.round(cv.clientWidth * sc)), h = Math.max(1, Math.round(cv.clientHeight * sc));
     if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
     gl.viewport(0, 0, w, h);
     gl.uniform2f(U("iResolution"), w, h);
     gl.uniform1f(U("iTime"), (Date.now() - t0) / 1000);
-    gl.uniform2f(U("iMouse"), mx ?? w / 2, my ?? h / 2);
+    gl.uniform2f(U("iMouse"), mx != null ? mx * sc : w / 2, my != null ? my * sc : h / 2);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) requestAnimationFrame(frame);
   };
-  return { run(v) { const was = on; on = v; if (v && !was) frame(); } };
+  const tick = (t) => {
+    raf = 0;
+    if (!on || document.hidden) return;
+    if (!(coarse && t - last < 33)) { last = t; draw(); }
+    if (!reduce) raf = requestAnimationFrame(tick);
+  };
+  const kick = () => { if (on && !raf && !document.hidden) raf = requestAnimationFrame(tick); };
+  document.addEventListener("visibilitychange", kick);
+  return { run(v) { const was = on; on = v; if (v && !was) { reduce ? draw() : kick(); } if (!v) { cancelAnimationFrame(raf); raf = 0; } } };
 })();
 
 
@@ -70,13 +80,14 @@ function mkLoader(size = 44) {
 const flow = (() => {
   const cv = $("flow"), ctx = cv.getContext("2d");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const coarse = matchMedia("(pointer: coarse)").matches;
   let W, H, on = false, paths = [], booms = [];
   function build() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = coarse ? 1 : Math.min(devicePixelRatio || 1, 2);
     W = innerWidth; H = innerHeight;
     cv.width = W * dpr; cv.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = W < 800 ? 36 : 80;
+    const n = coarse ? 24 : W < 800 ? 36 : 80;
     paths = Array.from({ length: n }, (_, i) => ({ left: i % 2 === 0, y: (i / n) * H * 1.4 - H * 0.2, t: Math.random(), v: 0.0015 + Math.random() * 0.002 }));
   }
   const bez = (t, a, b, c, d) => { const u = 1 - t;
@@ -103,10 +114,20 @@ const flow = (() => {
       ctx.fillStyle = lt ? "rgba(125,95,28,.8)" : "rgba(230,201,135,.75)"; ctx.fillRect(pos.x - 1.5, pos.y - 1.5, 3, 3);
     });
   }
-  const loop = () => { if (!on) return; draw(); if (!reduce) requestAnimationFrame(loop); };
+  let raf = 0, last = 0;
+  const tick = (t) => {
+    raf = 0;
+    if (!on || document.hidden) return;
+    if (!(coarse && t - last < 33)) { last = t; draw(); }
+    if (!reduce) raf = requestAnimationFrame(tick);
+  };
+  const kick = () => { if (on && !raf && !document.hidden) raf = requestAnimationFrame(tick); };
+  document.addEventListener("visibilitychange", kick);
   addEventListener("click", (e) => { if (on) booms.push({ x: e.clientX, y: e.clientY, r: 0, life: 1 }); });
   addEventListener("resize", () => { if (on) { build(); if (reduce) draw(); } });
-  return { refresh() { if (on && reduce) draw(); }, run(v) { const was = on; on = v; cv.classList.toggle("hidden", !v); if (v && !was) { build(); loop(); } } };
+  return { refresh() { if (on && reduce) draw(); },
+    run(v) { const was = on; on = v; cv.classList.toggle("hidden", !v);
+      if (v && !was) { build(); reduce ? draw() : kick(); } if (!v) { cancelAnimationFrame(raf); raf = 0; } } };
 })();
 
 // ---------- نمایش صفحات ----------
@@ -546,8 +567,9 @@ renderNav();
 flow.run(true);
 
 // ---------- کارت‌های نورانی (دنبال کردن موس) ----------
+const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
 let ptr = null;
-document.addEventListener("pointermove", (e) => {
+if (fine) document.addEventListener("pointermove", (e) => {
   ptr = e;
   if (ptr.pending) return;
   ptr.pending = true;
@@ -559,7 +581,7 @@ document.addEventListener("pointermove", (e) => {
     ptr.pending = false;
   });
 });
-document.querySelectorAll("#view-home .card").forEach((c) => {
+if (fine) document.querySelectorAll("#view-home .card").forEach((c) => {
   c.classList.add("glow");
   const g = document.createElement("div");
   g.className = "glow-in"; g.setAttribute("aria-hidden", "true");
@@ -675,3 +697,46 @@ $("profileOv").onclick = () => toggleProfile(false);
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && !$("profilePanel").classList.contains("hidden")) { toggleProfile(false); $("userBtn")?.focus(); }
 });
+
+// ---------- درباره من، تماس و ابزارهای صفحه ----------
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); }
+  catch {
+    const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select();
+    try { document.execCommand("copy"); } catch {}
+    a.remove();
+  }
+  toast("کپی شد.");
+}
+document.addEventListener("click", (e) => {
+  const c = e.target.closest("[data-copy]");
+  if (c) copyText(c.dataset.copy);
+});
+
+$("contactForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = $("cName").value.trim(), msg = $("cMsg").value.trim();
+  if (msg.length < 5) return ($("cErr").textContent = "پیام را کمی کامل‌تر بنویس.");
+  $("cErr").textContent = "";
+  const body = (name ? "از طرف: " + name + "\n\n" : "") + msg;
+  location.href = "mailto:aryanikbakht88@gmail.com?subject=" + encodeURIComponent("پیام از سایت EMAM cj") + "&body=" + encodeURIComponent(body);
+  toast("برنامه‌ی ایمیل شما باز می‌شود.");
+});
+
+// منوی موبایل
+const mm = $("mobileMenu"), mb = $("menuBtn");
+const setMenu = (open) => { mm.classList.toggle("hidden", !open); mb.setAttribute("aria-expanded", open); };
+mb.onclick = () => setMenu(mm.classList.contains("hidden"));
+document.addEventListener("click", (e) => { if (!e.target.closest("#mobileMenu, #menuBtn")) setMenu(false); else if (e.target.closest("#mobileMenu a")) setMenu(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+addEventListener("resize", () => { if (innerWidth > 860) setMenu(false); });
+
+// دکمه‌ی بازگشت به بالا
+const topBtn = $("toTop");
+let topTick = false;
+addEventListener("scroll", () => {
+  if (topTick) return;
+  topTick = true;
+  requestAnimationFrame(() => { topBtn.classList.toggle("hidden", scrollY < 700); topTick = false; });
+}, { passive: true });
+topBtn.onclick = () => scrollTo({ top: 0, behavior: "smooth" });
