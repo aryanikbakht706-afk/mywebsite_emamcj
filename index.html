@@ -15,7 +15,7 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("emam_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <meta name="theme-color" content="#0c0a08">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2730%27 fill=%27%23c9a45c%27/%3E%3Ctext x=%2732%27 y=%2742%27 font-size=%2730%27 font-family=%27Georgia,serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%231a1408%27%3EE%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
 
@@ -30,7 +30,7 @@
 <canvas id="flow" aria-hidden="true"></canvas>
 
 <nav id="nav">
-  <a class="logo" href="#" data-go="home">EMAM <em>cj</em></a>
+  <a class="logo has-ico" href="#" data-go="home" aria-label="EMAM cj"><svg class="logo-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16.5a3 3 0 0 0 3 3a2.5 2.5 0 0 0 5 0a2.5 2.5 0 1 0 5 0a3 3 0 0 0 2.567-4.554a3.001 3.001 0 0 0 0-5.893A3 3 0 0 0 17 4.5a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0-5 0a3 3 0 0 0-2.567 4.553a3.001 3.001 0 0 0 0 5.893A3 3 0 0 0 4 16.5"/><path d="m7.5 14.5l1.842-5.526a.694.694 0 0 1 1.316 0L12.5 14.5m3-6v6m-7-2h3"/></svg><span class="logo-txt">EMAM <em>cj</em></span></a>
   <div class="nav-links">
     <a href="#tools" data-go="home">ابزارها</a>
     <a href="#features" data-go="home">امکانات</a>
@@ -61,18 +61,51 @@
     <h1><span class="rw" style="--d:0s"><span>هوش</span></span> <span class="rw" style="--d:0.1s"><span>مصنوعی،</span></span> <span class="rw" style="--d:0.2s"><span>با</span></span> <span class="rw" style="--d:0.3s"><span><i>شکوه</i></span></span> <span class="rw" style="--d:0.4s"><span>و</span></span> <span class="rw" style="--d:0.5s"><span>سادگی</span></span></h1>
     <p>گفتگو، نوشتن و ترجمه در یک فضای آرام و حرفه‌ای. ابزارهای EMAM cj کارهای روزانه‌ات را سریع‌تر و دقیق‌تر می‌کنند.</p>
     <div class="hero-buttons">
-      <button class="btn gold" data-chat="chat">شروع گفتگو</button>
-      <button class="btn ghost" data-auth="register">ساخت حساب</button>
+      <button type="button" class="shiny-btn shiny-gold" data-chat="chat"><span>شروع گفتگو</span></button>
+      <button type="button" class="shiny-btn shiny-ember" data-auth="register"><span>ساخت حساب</span></button>
+    </div>
+    <div class="hero-buttons hero-bots">
+      <button type="button" class="btn bot-cta" data-go="bots"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 5v3M9 13h.01M15 13h.01M9 17h6"/><circle cx="12" cy="4" r="1"/></svg><span>ربات هوشمند تلگرام</span></button>
     </div>
   </header>
 
-  <section id="tools">
-    <h2>ابزارها</h2>
-    <div class="grid g4">
-      <article class="card" tabindex="0" data-chat="chat"><h3>گفتگوی هوشمند</h3><p>پرسش بپرس و پاسخ کامل بگیر.</p></article>
-      <article class="card" tabindex="0" data-chat="writer"><h3>نویسنده</h3><p>نوشتن و بازنویسی متن‌های حرفه‌ای.</p></article>
-      <article class="card" tabindex="0" data-chat="image"><h3>تصویرساز</h3><p>توصیف بده، ایده تصویری بساز.</p></article>
-      <article class="card" tabindex="0" data-chat="translate"><h3>مترجم</h3><p>ترجمه سریع میان فارسی و انگلیسی.</p></article>
+  <section id="tools" class="capabilities-section">
+    <div class="capabilities-wrap">
+      <div class="capabilities-copy">
+        <span class="section-kicker">EMAM cj GPT</span>
+        <h2>با یک چت،<br><i>چندین کار</i> انجام بده</h2>
+        <p>EMAM cj فقط برای جواب دادن نیست؛ برای نوشتن، ترجمه، تحلیل، کار با فایل و عکس، گفتگوی صوتی و مدیریت گفتگوها ساخته شده است.</p>
+        <div class="capability-actions">
+          <button type="button" class="shiny-btn shiny-gold" data-chat="chat"><span>شروع گفتگو</span></button>
+          <button type="button" class="shiny-btn shiny-ember" data-auth="register"><span>ساخت حساب</span></button>
+        </div>
+      </div>
+      <div class="capability-marquee" id="capabilityMarquee">
+        <div class="capability-vignette top"></div>
+        <div class="capability-track">
+          <div class="capability-column" data-speed="26">
+            <article class="capability-item" data-chat="chat"><span class="cap-icon">✦</span><div><b>گفتگوی هوشمند</b><small>پاسخ‌گویی، ایده‌پردازی و حل مسئله</small></div></article>
+            <article class="capability-item" data-chat="writer"><span class="cap-icon">Aa</span><div><b>نویسندگی و بازنویسی</b><small>متن حرفه‌ای، کپشن، مقاله و ایده</small></div></article>
+            <article class="capability-item" data-chat="translate"><span class="cap-icon">文</span><div><b>ترجمه چندزبانه</b><small>ترجمه روان فارسی و زبان‌های دیگر</small></div></article>
+            <article class="capability-item"><span class="cap-icon">⌁</span><div><b>گفتگوی صوتی</b><small>صحبت با میکروفون و دریافت پاسخ صوتی</small></div></article>
+            <article class="capability-item"><span class="cap-icon">◫</span><div><b>کار با فایل و عکس</b><small>خواندن متن، تصویر و فایل‌های پیوست</small></div></article>
+            <article class="capability-item"><span class="cap-icon">◷</span><div><b>حافظه چت</b><small>ذخیره و بازکردن گفتگوهای قبلی</small></div></article>
+            <article class="capability-item"><span class="cap-icon">⚙</span><div><b>شخصیت دستیار</b><small>تنظیم لحن، رسمی بودن و میزان سخت‌گیری</small></div></article>
+            <article class="capability-item"><span class="cap-icon">⌘</span><div><b>چند مدل هوش مصنوعی</b><small>انتخاب مدل مناسب برای هر گفتگو</small></div></article>
+          </div>
+          <div class="capability-column capability-column-copy" aria-hidden="true">
+            <article class="capability-item"><span class="cap-icon">✦</span><div><b>گفتگوی هوشمند</b><small>پاسخ‌گویی، ایده‌پردازی و حل مسئله</small></div></article>
+            <article class="capability-item"><span class="cap-icon">Aa</span><div><b>نویسندگی و بازنویسی</b><small>متن حرفه‌ای، کپشن، مقاله و ایده</small></div></article>
+            <article class="capability-item"><span class="cap-icon">文</span><div><b>ترجمه چندزبانه</b><small>ترجمه روان فارسی و زبان‌های دیگر</small></div></article>
+            <article class="capability-item"><span class="cap-icon">⌁</span><div><b>گفتگوی صوتی</b><small>صحبت با میکروفون و دریافت پاسخ صوتی</small></div></article>
+            <article class="capability-item"><span class="cap-icon">◫</span><div><b>کار با فایل و عکس</b><small>خواندن متن، تصویر و فایل‌های پیوست</small></div></article>
+            <article class="capability-item"><span class="cap-icon">◷</span><div><b>حافظه چت</b><small>ذخیره و بازکردن گفتگوهای قبلی</small></div></article>
+            <article class="capability-item"><span class="cap-icon">⚙</span><div><b>شخصیت دستیار</b><small>تنظیم لحن، رسمی بودن و میزان سخت‌گیری</small></div></article>
+            <article class="capability-item"><span class="cap-icon">⌘</span><div><b>چند مدل هوش مصنوعی</b><small>انتخاب مدل مناسب برای هر گفتگو</small></div></article>
+          </div>
+        </div>
+        <div class="capability-vignette bottom"></div>
+      </div>
     </div>
   </section>
 
@@ -185,25 +218,117 @@
   </button>
 </main>
 
-<main id="view-auth" class="view hidden">
-  <canvas id="smoke" aria-hidden="true"></canvas>
-  <div class="auth-box">
-    <button class="link back" data-go="home">بازگشت</button>
-    <div class="logo center">EMAM <em>cj</em></div>
-    <h2 class="auth-title" id="authTitle">خوش آمدید</h2>
-    <p class="auth-sub" id="authSub">برای ادامه وارد شوید</p>
-    <form id="authForm" novalidate onsubmit="return false">
-      <div class="field" id="nameField"><input id="name" type="text" placeholder=" " autocomplete="name"><label for="name"><svg class="ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>نام و نام خانوادگی</label></div>
-      <div class="field"><input id="email" type="email" placeholder=" " autocomplete="email" required><label for="email"><svg class="ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ایمیل</label></div>
-      <div class="field"><input id="password" type="password" placeholder=" " autocomplete="current-password" required><label for="password"><svg class="ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>رمز عبور</label></div>
-      <button type="button" class="link small" id="forgotBtn">رمز عبورت را فراموش کرده‌ای؟</button>
-      <p id="authError" class="error" role="alert"></p>
-      <button class="btn gold full arrow" id="authSubmit" type="submit"><span id="authLabel">ورود</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-      <div class="divider"><span>یا</span></div>
-      <button type="button" class="btn light full" id="googleBtn">ادامه با Google</button>
-    </form>
-    <p class="switch" id="authSwitch"></p>
+<main id="view-bots" class="view hidden">
+  <section class="bots-page">
+    <button type="button" class="link bots-back" data-go="home"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> بازگشت</button>
+
+    <header class="bots-head">
+      <span class="section-kicker">EMAM cj BOTS</span>
+      <h1>ربات‌های <i>تلگرام</i> EMAM cj</h1>
+      <p>نوع ربات را انتخاب کن؛ با زدن دکمه، مستقیم وارد تلگرام می‌شوی.</p>
+    </header>
+
+    <div class="bots-grid">
+      <!-- ربات ۱: بدون هوش مصنوعی. لینک را در href بگذار: https://t.me/نام_ربات -->
+      <article class="card bot-card">
+        <span class="bot-ico" aria-hidden="true">⚙</span>
+        <h3>ربات بدون هوش مصنوعی</h3>
+        <p>ربات سریع و سبک با منو و دکمه‌های آماده که فقط کارهای از پیش تعریف‌شده را انجام می‌دهد.</p>
+        <ul class="bot-feats">
+          <li>منوی دکمه‌ای و پاسخ‌های از پیش تعیین‌شده</li>
+          <li>سریع، سبک و همیشه در دسترس</li>
+          <li>مناسب اطلاعیه، راهنما و کارهای ساده</li>
+        </ul>
+        <a class="btn gold bot-link" href="#" target="_blank" rel="noopener noreferrer" data-bot="plain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg><span>ورود به تلگرام</span></a>
+      </article>
+
+      <!-- ربات ۲: با هوش مصنوعی. لینک را در href بگذار: https://t.me/نام_ربات -->
+      <article class="card bot-card featured">
+        <span class="bot-badge">هوشمند</span>
+        <span class="bot-ico" aria-hidden="true">✦</span>
+        <h3>ربات با هوش مصنوعی</h3>
+        <p>دستیار گفتگوی هوشمند فارسی که می‌تواند مثل چت همین سایت به سؤال‌هایت جواب بدهد.</p>
+        <ul class="bot-feats">
+          <li>گفتگوی آزاد و هوشمند به فارسی</li>
+          <li>نوشتن، بازنویسی و ترجمه</li>
+          <li>پاسخ به سؤال و کمک در حل مسئله</li>
+        </ul>
+        <a class="btn gold bot-link" href="#" target="_blank" rel="noopener noreferrer" data-bot="ai"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg><span>ورود به تلگرام</span></a>
+      </article>
+    </div>
+
+    <ol class="bots-steps">
+      <li><b>۱</b><span>یکی از ربات‌ها را انتخاب کن</span></li>
+      <li><b>۲</b><span>روی «ورود به تلگرام» بزن</span></li>
+      <li><b>۳</b><span>در تلگرام دکمه‌ی Start را بزن</span></li>
+    </ol>
+  </section>
+</main>
+
+<main id="view-auth" class="view hidden emam-auth-view">
+  <div class="auth-noise" aria-hidden="true"></div>
+  <div class="auth-purple auth-purple-one" aria-hidden="true"></div>
+  <div class="auth-purple auth-purple-two" aria-hidden="true"></div>
+  <div class="auth-stage" id="authStage">
+    <div class="auth-box">
+      <button class="auth-back link" data-go="home" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        بازگشت
+      </button>
+
+      <div class="auth-brand">
+        <span class="auth-brand-mark">E</span>
+        <span class="auth-brand-text">EMAM <em>cj</em></span>
+      </div>
+
+      <div class="auth-heading">
+        <h2 class="auth-title" id="authTitle">خوش آمدید</h2>
+        <p class="auth-sub" id="authSub">برای ادامه وارد حساب خود شوید</p>
+      </div>
+
+      <form id="authForm" novalidate>
+        <div class="field auth-field" id="nameField">
+          <span class="auth-field-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          <input id="name" type="text" placeholder=" " autocomplete="name">
+          <label for="name">نام و نام خانوادگی</label>
+        </div>
+
+        <div class="field auth-field">
+          <span class="auth-field-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <input id="email" type="email" placeholder=" " autocomplete="email" required>
+          <label for="email">ایمیل</label>
+        </div>
+
+        <div class="field auth-field auth-password-field">
+          <span class="auth-field-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+          <input id="password" type="password" placeholder=" " autocomplete="current-password" required>
+          <label for="password">رمز عبور</label>
+          <button type="button" class="password-toggle" id="passwordToggle" aria-label="نمایش رمز عبور"><span class="eye-open">◉</span><span class="eye-off">◌</span></button>
+        </div>
+
+        <div class="auth-options">
+          <label class="remember-option"><input id="rememberMe" type="checkbox" checked><span class="custom-check"></span><span>مرا به خاطر بسپار</span></label>
+          <button type="button" class="auth-forgot link small" id="forgotBtn">رمز عبورت را فراموش کرده‌ای؟</button>
+        </div>
+
+        <p id="authError" class="error auth-error" role="alert"></p>
+
+        <button class="auth-submit btn full" id="authSubmit" type="submit">
+          <span id="authLabel">ورود به حساب</span>
+          <span class="auth-submit-arrow">→</span>
+        </button>
+
+        <div class="divider auth-divider"><span>یا</span></div>
+
+        <button type="button" class="google-auth-btn" id="googleBtn">
+          <span class="google-logo">G</span>
+          <span>ادامه با Google</span>
+        </button>
+      </form>
+
+      <p class="switch auth-switch" id="authSwitch"></p>
+      <p class="auth-credit">ساخته‌شده با دقت برای <strong>EMAM cj</strong></p>
+    </div>
   </div>
 </main>
 
@@ -217,6 +342,7 @@
         <button type="button" class="chip" id="personaBtn">شخصیت</button>
         <button type="button" class="chip" id="ttsBtn" aria-pressed="false">پاسخ صوتی: خاموش</button>
         <button type="button" class="chip" id="exportBtn">خروجی</button>
+        <button type="button" class="chip" id="ragBtn" aria-pressed="false" title="جستجو در اسناد من (RAG)">اسناد: خاموش</button>
         <button type="button" class="chip" id="historyBtn">حافظه چت</button>
         <button type="button" class="chip" id="newChat">چت جدید</button>
       </div>
@@ -233,6 +359,7 @@
           <button type="button" data-att="video">ویدیو</button>
           <button type="button" data-att="audio">آهنگ</button>
           <button type="button" data-att="camera">دوربین</button>
+          <button type="button" data-rag="add">افزودن به اسناد (RAG)</button>
         </div>
       </div>
       <textarea id="messageInput" rows="1" placeholder="پیامت را بنویس..." autocomplete="off"></textarea>
@@ -247,6 +374,7 @@
   </div>
 </main>
 <input type="file" id="fileIn" hidden>
+<input type="file" id="ragFileIn" hidden multiple accept=".pdf,.docx,.txt,.md,.csv,.json">
 
 <dialog id="personaDlg">
   <h3>شخصیت و لحن دستیار</h3>
@@ -261,6 +389,21 @@
     <button type="button" class="btn ghost" id="pCancel">انصراف</button>
     <button type="button" class="btn gold" id="pApply">اعمال</button>
   </div>
+</dialog>
+
+<dialog id="ragDlg">
+  <h3>جستجو در اسناد (RAG)</h3>
+  <div class="rag-row">
+    <div class="rag-row-text"><b>پاسخ از روی اسناد من</b><small id="ragState" class="muted"></small></div>
+    <button type="button" id="ragToggle" class="rag-sw" role="switch" aria-checked="false" aria-label="روشن یا خاموش کردن جستجو در اسناد"><span></span></button>
+  </div>
+  <p id="ragNotice" class="rag-notice hidden" role="status"></p>
+  <div class="rag-add">
+    <button type="button" class="btn ghost" id="ragPick">افزودن فایل</button>
+    <small id="ragLimits" class="muted"></small>
+  </div>
+  <div id="ragList" class="hist-list"></div>
+  <div class="dlg-actions"><button type="button" class="link" id="ragClear">پاک کردن همه</button><span></span><button type="button" class="btn ghost" id="ragClose">بستن</button></div>
 </dialog>
 
 <dialog id="histDlg">
@@ -278,6 +421,6 @@
 <aside id="profilePanel" class="profile hidden" role="dialog" aria-label="منوی کاربر"></aside>
 
 <div id="toast" class="toast" role="status"></div>
-<script src="script.js?v=11"></script>
+<script src="script.js?v=15"></script>
 </body>
 </html>
