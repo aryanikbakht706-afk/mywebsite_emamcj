@@ -57,7 +57,7 @@ const flow = (() => {
     booms = booms.filter((b) => b.life > 0);
 
     ctx.lineWidth = 1.2;
-    ctx.strokeStyle = lt ? "rgba(138,106,34,.3)" : "rgba(201,164,92,.28)";
+    ctx.strokeStyle = lt ? "rgba(11,95,168,.3)" : "rgba(56,163,240,.28)";
     ctx.setLineDash([1, 4]);
 
     paths.forEach((p) => {
@@ -93,7 +93,7 @@ const flow = (() => {
         }
       });
 
-      ctx.fillStyle = lt ? "rgba(125,95,28,.8)" : "rgba(230,201,135,.75)";
+      ctx.fillStyle = lt ? "rgba(11,95,168,.8)" : "rgba(143,208,255,.75)";
       ctx.fillRect(pos.x - 1.5, pos.y - 1.5, 3, 3);
     });
   }
@@ -2227,4 +2227,4 @@ topBtn.onclick = () =>
         }
       );
     });
-})();ر
+})();
